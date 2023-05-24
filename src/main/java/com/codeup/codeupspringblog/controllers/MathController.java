@@ -12,7 +12,7 @@ public class MathController {
         return String.valueOf(num1 + num2);
     }
 
-    @GetMapping("/subtract/{num1}/and/{num2}")
+    @GetMapping("/subtract/{num1}/from/{num2}")
     @ResponseBody
     public String subtract(@PathVariable int num1, @PathVariable int num2){
         return String.valueOf(num1 - num2);
@@ -23,7 +23,7 @@ public class MathController {
         return String.valueOf(num1 * num2);
     }
 
-    @GetMapping("/divide/{num1}/and/{num2}")
+    @GetMapping("/divide/{num1}/by/{num2}")
     @ResponseBody
     public String division (@PathVariable int num1, @PathVariable int num2){
         return String.valueOf(num1 / num2);
