@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Dice Result</title>
+</head>
+<body>
+<h1>Dice Roll Result</h1>
+<p>You rolled:</p>
+<ul>
+  <li th:each="roll : ${diceRolls}" th:text="${roll}"></li>
+</ul>
+<p th:text="'You guessed: ' + ${userGuess}"></p>
+<p th:text="'Number of matches: ' + ${matchCount}"></p>
+<a href="/roll-dice">Roll again</a>
+<!--<p th:text="'You rolled: ' + ${diceRoll}"></p>-->
+<!--<p th:text="'You guessed: ' + ${userGuess}"></p>-->
+<!--<p th:if="${isCorrect}">Congratulations! You guessed correctly.</p>-->
+<!--<p th:unless="${isCorrect}">Sorry, your guess was incorrect. Try again.</p>-->
+<!--<a href="/roll-dice">Roll again</a>-->
+</body>
+</html>
