@@ -29,8 +29,6 @@ public class AdController {
         this.adsDao = adsDao;
         this.usersDao = usersDao;
     }
-
-
     @GetMapping("/ads")
     public String adIndex(Model model) {
         model.addAttribute("ads", adsDao.findAll());

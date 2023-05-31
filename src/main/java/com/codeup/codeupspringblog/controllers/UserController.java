@@ -27,14 +27,13 @@ public class UserController {
                                @RequestParam String password) {
         User user = new User(username, email, password);
         usersDao.save(user);
-        return "redirect:/ads";
+        return "redirect:/ads/create";
     }
-
     @GetMapping("/user/{id}/ads")
     public String UserAds(@PathVariable long id, Model model) {
         User user = usersDao.findUserById(id);
         model.addAttribute("userAds", user.getAds());
-        return "ads/index";
+        return "my_ads";
 
 
     }
