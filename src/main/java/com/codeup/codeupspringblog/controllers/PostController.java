@@ -1,7 +1,13 @@
 package com.codeup.codeupspringblog.controllers;
 
 
+import com.codeup.codeupspringblog.models.Category;
+import com.codeup.codeupspringblog.models.Comment;
 import com.codeup.codeupspringblog.models.Post;
+import com.codeup.codeupspringblog.models.User;
+import com.codeup.codeupspringblog.repositories.CategoryRepository;
+import com.codeup.codeupspringblog.repositories.CommentRepository;
+import com.codeup.codeupspringblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,15 +16,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.codeup.codeupspringblog.repositories.PostsRepository;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class PostController {
 
     private PostsRepository postsDao;
+    private UserRepository usersDao;
+    private CommentRepository commentsDao;
+    private CategoryRepository categoriesDao;
 
-    public PostController(PostsRepository postsDao){
+    public PostController(PostsRepository postsDao, UserRepository usersDao, CommentRepository commentsDao, CategoryRepository categoriesDao) {
         this.postsDao = postsDao;
+        this.usersDao = usersDao;
+        this.commentsDao = commentsDao;
+        this.categoriesDao = categoriesDao;
+    }
+
+    public Set<Category> makeCategorySet(String categoriesCsl) {
+        Set<Category> categoryObjects = new HashSet<>();
+        if (categoriesCsl.equals("")) {
+            return categoryObjects;
+        }
+        for (String catergory : categoriesCsl.split("")) {
+        }
+        return categoryObjects;
     }
 
     @GetMapping("/posts")
@@ -43,12 +67,53 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String submitForm(@RequestParam(name="title") String title, @RequestParam(name="body") String content) {
-        Post post = new Post(title, content);
+        User user = usersDao.findUserById(1L);
+        Post post = new Post(title, content, user);
         postsDao.save(post);
         return "redirect:/posts";
     }
-}
+    @PostMapping("/posts/comment")
+    public String submitComment (@RequestParam(name="content") String content, @RequestParam(name="postId") long postId) {
+        Post post = postsDao.findById(postId);
+        User user = usersDao.findUserById(1L);
+        Comment comment = new Comment(content, post, user);
+        commentsDao.save(comment);
+        return "redirect:/posts";
+    }
 
+    public PostsRepository getPostsDao() {
+        return postsDao;
+    }
+
+    public void setPostsDao(PostsRepository postsDao) {
+        this.postsDao = postsDao;
+    }
+
+    public UserRepository getUsersDao() {
+        return usersDao;
+    }
+
+
+    public void setUsersDao(UserRepository usersDao) {
+        this.usersDao = usersDao;
+    }
+
+    public CommentRepository getCommentsDao() {
+        return commentsDao;
+    }
+
+    public void setCommentsDao(CommentRepository commentsDao) {
+        this.commentsDao = commentsDao;
+    }
+
+    public CategoryRepository getCategoriesDao() {
+        return categoriesDao;
+    }
+
+    public void setCategoriesDao(CategoryRepository categoriesDao) {
+        this.categoriesDao = categoriesDao;
+    }
+}
 
 
 
