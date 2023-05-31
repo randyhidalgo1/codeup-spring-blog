@@ -1,17 +1,26 @@
-package repositories;
-import com.codeup.codeupspringblog.models.Ad;
+package com.codeup.codeupspringblog.repositories;
+
 import com.codeup.codeupspringblog.models.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface PostsRepository extends JpaRepository<Post, Long> {
     Post findById(long id);
-
-public class postsDao {
-    public static void save(Post post) {
-    }
 }
+
+
+
+
+
+
+
+
+
+//public class postsDao {
+//    public static void save(Post post) {
+//    }
+//}
 
 //    @PostMapping("/create")
 //    public default String submitPost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body){
@@ -20,4 +29,4 @@ public class postsDao {
 //        return "redirect:/posts";
 //    }
 
-}
+
