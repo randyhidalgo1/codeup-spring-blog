@@ -35,7 +35,7 @@ public class Post {
         return content;
     }
 
-    public void setBody(String content) {
+    public void setContent(String content) {
         this.content = content;
     }
 

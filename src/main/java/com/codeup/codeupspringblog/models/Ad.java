@@ -1,20 +1,27 @@
 package com.codeup.codeupspringblog.models;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "ads")
 public class Ad {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(nullable = false, length = 100)
     private String title;
+
+    @Column(nullable = false)
     private String description;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public static void save(Post post) {
-
-    }
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -35,10 +42,28 @@ public class Ad {
         this.description = description;
     }
 
-    public Ad(){}
-
-    public void setId(Long id) {
-        this.id = id;
+    public User getUser() {
+        return user;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
+    public Ad() {
+    }
+
+    public Ad(String description,String title) {
+        this.description = description;
+        this.title = title;
+    }
+
+    public Ad(String title, String description, User user) {
+        this.title = title;
+        this.description = description;
+        this.user = user;
+    }
+
 
 }

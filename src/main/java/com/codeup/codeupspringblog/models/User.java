@@ -18,13 +18,11 @@ public class User {
     private String email;
     @Column(nullable = false)
     private String password;
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
     private List<Ad> ads;
     public User() {
     }
-    public User(String username, String email, String password) {
 
-    }
     public long getId() {
         return id;
     }
@@ -49,10 +47,18 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public User(long id, String username, String email, String password) {
-        this.id = id;
+
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public List<Ad> getAds() {
+        return ads;
+    }
+
+    public void setAds(List<Ad> ads) {
+        this.ads = ads;
     }
 }
