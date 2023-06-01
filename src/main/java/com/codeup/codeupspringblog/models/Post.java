@@ -1,4 +1,5 @@
 package com.codeup.codeupspringblog.models;
+
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -16,23 +17,22 @@ public class Post {
     private String title;
 
     @Column(nullable = false, length=500)
-    private String content;
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "user_id")
+    private String body;
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
-    private List<Comment> comment;
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "post")
+    private List<Comment> comments;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
-            name="posts_categories",
-            joinColumns={@JoinColumn(name="post_id")},
-            inverseJoinColumns={@JoinColumn(name="category_id")}
+            name = "posts_categories",
+            joinColumns = @JoinColumn(name="post_id"),
+            inverseJoinColumns = @JoinColumn(name="category_id")
     )
-
     private Set<Category> categories;
-
 
     public long getId() {
         return id;
@@ -50,26 +50,12 @@ public class Post {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public String getBody() {
+        return body;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Post() {
-    }
-
-    public Post(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
-
-    public Post(long id, String title, String content) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public User getUser() {
@@ -80,27 +66,6 @@ public class Post {
         this.user = user;
     }
 
-    public Post(String title, String content, User user) {
-        this.title = title;
-        this.content = content;
-        this.user = user;
-    }
-
-    public Post(long id, String title, String content, User user) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.user = user;
-    }
-
-    public List<Comment> getComment() {
-        return comment;
-    }
-
-    public void setComment(List<Comment> comment) {
-        this.comment = comment;
-    }
-
     public Set<Category> getCategories() {
         return categories;
     }
@@ -109,15 +74,28 @@ public class Post {
         this.categories = categories;
     }
 
-    public Post(String title, String content, User user, List<Comment> comment, Set<Category> categories) {
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Post() {
+    }
+
+    public Post(String title, String body) {
         this.title = title;
-        this.content = content;
+        this.body = body;
+    }
+
+    public Post(String title, String body, User user) {
+        this.title = title;
+        this.body = body;
         this.user = user;
-        this.comment = comment;
-        this.categories = categories;
     }
 }
-
 
 
 

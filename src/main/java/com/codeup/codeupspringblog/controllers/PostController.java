@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.codeup.codeupspringblog.repositories.PostsRepository;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Controller
 public class PostController {
-
     private PostsRepository postsDao;
     private UserRepository usersDao;
     private CommentRepository commentsDao;
@@ -40,7 +40,9 @@ public class PostController {
         if (categoriesCsl.equals("")) {
             return categoryObjects;
         }
-        for (String catergory : categoriesCsl.split("")) {
+        for (String category : categoriesCsl.split(",")) {
+            Category categoryObject = new Category(category.trim());
+            categoryObjects.add(categoryObject);
         }
         return categoryObjects;
     }
@@ -66,12 +68,28 @@ public class PostController {
     }
 
     @PostMapping("/posts/create")
-    public String submitForm(@RequestParam(name="title") String title, @RequestParam(name="body") String content) {
+    public String submitForm(@RequestParam(name="title") String title, @RequestParam(name="body") String body, @RequestParam(name="categories") String categories) {
         User user = usersDao.findUserById(1L);
-        Post post = new Post(title, content, user);
+        Post post = new Post(title, body, user);
+        Set<Category> categorySet = makeCategorySet(categories);
+        if (categorySet.size() > 0){
+            List<Category> categoriesToAdd = new ArrayList<>();
+            for (Category category : categorySet){
+                Category categoryFromDb = categoriesDao.findCategoryByName(category.getName());
+                if (categoryFromDb == null){
+                    categoriesToAdd.add(category);
+                } else {
+                    categoriesToAdd.add(categoryFromDb);
+                }
+            }
+            categorySet.clear();
+            categorySet.addAll(categoriesToAdd);
+            post.setCategories(categorySet);
+        }
         postsDao.save(post);
         return "redirect:/posts";
     }
+
     @PostMapping("/posts/comment")
     public String submitComment (@RequestParam(name="content") String content, @RequestParam(name="postId") long postId) {
         Post post = postsDao.findById(postId);
@@ -92,24 +110,18 @@ public class PostController {
     public UserRepository getUsersDao() {
         return usersDao;
     }
-
-
     public void setUsersDao(UserRepository usersDao) {
         this.usersDao = usersDao;
     }
-
     public CommentRepository getCommentsDao() {
         return commentsDao;
     }
-
     public void setCommentsDao(CommentRepository commentsDao) {
         this.commentsDao = commentsDao;
     }
-
     public CategoryRepository getCategoriesDao() {
         return categoriesDao;
     }
-
     public void setCategoriesDao(CategoryRepository categoriesDao) {
         this.categoriesDao = categoriesDao;
     }

@@ -17,6 +17,14 @@ public class Category {
 
     @ManyToMany(mappedBy = "categories")
     private Set<Post> posts;
+
+    public Category() {
+    }
+    public Category(String name) {
+        this.name = name;
+    }
+
+
     public long getId() {
         return id;
     }
@@ -32,18 +40,6 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
-
-    public Category(long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Category(long id, String name, Set<Post> posts) {
-        this.id = id;
-        this.name = name;
-        this.posts = posts;
-    }
-
     public Set<Post> getPosts() {
         return posts;
     }

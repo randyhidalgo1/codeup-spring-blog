@@ -11,7 +11,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @Column(nullable = false, length = 50)
     private String username;
     @Column(nullable = false)
@@ -20,11 +19,10 @@ public class User {
     private String password;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
     private List<Ad> ads;
-
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
     private List<Post> posts;
-    public User() {
-    }
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    private List<Comment> comments;
 
     public long getId() {
         return id;
@@ -51,6 +49,8 @@ public class User {
         this.password = password;
     }
 
+    public User() {
+    }
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
@@ -71,6 +71,13 @@ public class User {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+    }
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
 }

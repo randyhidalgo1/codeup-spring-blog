@@ -10,11 +10,6 @@ public class Comment {
     private long id;
     @Column(nullable = false)
     private String content;
-
-    public Comment(long id, String content) {
-        this.id = id;
-        this.content = content;
-    }
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
