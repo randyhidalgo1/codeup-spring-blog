@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Post</title>
+</head>
+<body>
+<h1>Edit Post</h1>
+
+<h3>Post Details:</h3>
+<p><strong>Title:</strong> <span th:text="${post.title}"></span></p>
+<p><strong>Content:</strong> <span th:text="${post.body}"></span></p>
+
+<hr>
+
+<h3>Edit Post:</h3>
+<form th:action="@{/posts/{id}/edit(id=${post.id})}" method="POST">
+      <div>
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" th:value="${post.title}">
+      </div>
+      <div>
+      <label for="body">Content</label>
+      <textarea id="body" name="body" th:text="${post.body}"></textarea>
+      </div>
+      <button type="submit">Update Post</button>
+      </form>
+</body>
+</html>
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>Edit Post</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Edit Post</h1>-->
+
+<!--<form action="/posts/{id}/edit" method="POST">-->
+<!--  <div>-->
+<!--    <label for="title">Title</label>-->
+<!--    <input type="text" id="title" name="title" value="{{ post.title }}">-->
+<!--  </div>-->
+
+<!--  <div>-->
+<!--    <label for="content">Content</label>-->
+<!--    <textarea id="content" name="content">{{ post.body }}</textarea>-->
+<!--  </div>-->
+
+<!--  <button type="submit">Update Post</button>-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->

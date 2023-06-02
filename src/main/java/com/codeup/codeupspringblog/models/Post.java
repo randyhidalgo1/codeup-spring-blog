@@ -66,13 +66,13 @@ public class Post {
         this.user = user;
     }
 
-    public Set<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
-    }
+//    public Set<Category> getCategories() {
+//        return categories;
+//    }
+//
+//    public void setCategories(Set<Category> categories) {
+//        this.categories = categories;
+//    }
 
     public List<Comment> getComments() {
         return comments;
@@ -85,16 +85,35 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String body) {
-        this.title = title;
-        this.body = body;
-    }
+//    public Post(String title, String body) {
+//        this.title = title;
+//        this.body = body;
+//    }
+//
+//    public Post(String title, String body, User user) {
+//        this.title = title;
+//        this.body = body;
+//        this.user = user;
+//    }
 
-    public Post(String title, String body, User user) {
+
+    public Post(long id, String title, String body, User user, List<Comment> comments, Set<Category> categories) {
+        this.id = id;
         this.title = title;
         this.body = body;
         this.user = user;
+        this.comments = comments;
+        this.categories = categories;
     }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
 }
 
 

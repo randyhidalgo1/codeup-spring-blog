@@ -1,0 +1,36 @@
+<header th:fragment="navbar" class="container">
+  <div class="row grow">
+    <div class="column shrink justify-center">
+      LOGO HERE
+    </div>
+    <div class="column align-right">
+      <nav>
+        <ul>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/posts">Posts</a>
+            <ul>
+              <li>
+                <a href="/posts">View All</a>
+              </li>
+              <li>
+                <a href="#">My Posts</a>
+              </li>
+              <li>
+                <a href="/post-creator">Create Post</a>
+              </li>
+              <li>
+                <a href="/{id}/edit">Edit Post</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="//post-creator">Create Post</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
